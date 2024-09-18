@@ -2,7 +2,9 @@
 #include <string>
 #include <iostream>
 
-using std::cout, std::endl, std::string;
+using std::cout;
+using std::endl;
+using std::string;
 
 namespace WeatherSpace {
 class IWeatherSensor {
@@ -19,21 +21,34 @@ class IWeatherSensor {
 /// without needing the actual Sensor during development
 
 class SensorStub : public IWeatherSensor {
+ public:
+    SensorStub(int humidity, int precipitation, int temperature, int windSpeed):
+        m_humidity(humidity),
+        m_precipitation(precipitation),
+        m_temperature(temperature),
+        m_windSpeed(windSpeed)
+    {}
     int Humidity() const override {
-        return 72;
+        return m_humidity;
     }
 
     int Precipitation() const override {
-        return 70;
+        return m_precipitation;
     }
 
     double TemperatureInC() const override {
-        return 26;
+        return m_temperature;
     }
 
     int WindSpeedKMPH() const override {
-        return 52;
+        return m_windSpeed;
     }
+
+ private:
+    int m_humidity;
+    int m_precipitation;
+    int m_temperature;
+    int m_windSpeed;
 };
 
 // This is a function to predict the weather, based on readings
@@ -56,29 +71,28 @@ string Report(const IWeatherSensor& sensor) {
 // Test a rainy day
 
 void TestRainy() {
-    SensorStub sensor;
+    SensorStub sensor(72, 70, 26, 52);
     string report = Report(sensor);
     cout << report << endl;
     assert(report.find("rain") != string::npos);
 }
 
 // Test another rainy day
-
 void TestHighPrecipitationAndLowWindspeed() {
     // This instance of stub needs to be different-
     // to give high precipitation (>60) and low wind-speed (<50)
-    SensorStub sensor;
+    SensorStub sensor(72, 70, 26, 30);
 
     // strengthen the assert to expose the bug
     // (function returns Sunny day, it should predict rain)
     string report = Report(sensor);
-    assert(report.length() > 0);
+    assert(report.find("rain") != string::npos);
 }
 }  // namespace WeatherSpace
 
 int main() {
     WeatherSpace::TestRainy();
     WeatherSpace::TestHighPrecipitationAndLowWindspeed();
-    cout << "All is well (maybe)\n";
+    cout << "All is well\n";
     return 0;
 }
