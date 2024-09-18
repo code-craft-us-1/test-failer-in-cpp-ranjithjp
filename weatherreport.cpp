@@ -21,7 +21,7 @@ class IWeatherSensor {
 /// without needing the actual Sensor during development
 
 class SensorStub : public IWeatherSensor {
-public:
+ public:
     SensorStub(int humidity, int precipitation, int temperature, int windSpeed):
         m_humidity(humidity),
         m_precipitation(precipitation),
@@ -44,7 +44,7 @@ public:
         return m_windSpeed;
     }
 
-private:
+ private:
     int m_humidity;
     int m_precipitation;
     int m_temperature;
@@ -71,7 +71,7 @@ string Report(const IWeatherSensor& sensor) {
 // Test a rainy day
 
 void TestRainy() {
-    SensorStub sensor(72,70,26,52);
+    SensorStub sensor(72, 70, 26, 52);
     string report = Report(sensor);
     cout << report << endl;
     assert(report.find("rain") != string::npos);
