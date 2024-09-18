@@ -40,7 +40,6 @@ class SensorStub : public IWeatherSensor {
 
 
 class SecondSensorStub : public IWeatherSensor {
-public:
     int Humidity() const override {
         return 72;
     }

@@ -7,12 +7,12 @@ const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
 const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
 
 
-int BuildColorMap(std::string &colorMap)
-{
+int BuildColorMap(std::string &colorMap){
     int i = 0, j = 0;
     for (i = 0; i < 5; i++) {
         for (j = 0; j < 5; j++) {
-            colorMap.append(std::to_string(i * 5 + j) + " | " + majorColor[i] + " | " + minorColor[j] + "\n");
+            colorMap.append(std::to_string(i * 5 + j) +
+                " | " + majorColor[i] + " | " + minorColor[j] + "\n");
         }
     }
     return i*j;
@@ -24,12 +24,6 @@ int printColorMap() {
     std::cout << colorMap;
     return noOfRows;
 }
-
-//bool TestColorMap(std::string colorMap)
-//{
-//    bool pass = true;
-//    colorMap.substr('\n');
-//}
 
 
 int main() {
