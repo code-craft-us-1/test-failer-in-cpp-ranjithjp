@@ -36,8 +36,7 @@ std::string BuildColorMap() {
     return colorMap;
 }
 
-void TestColorMapEntryCount()
-{
+void TestColorMapEntryCount() {
     std::string colorMap = BuildColorMap();
     std::vector<std::string> eachLineColormap = tokenize(colorMap, "\n");
     assert(eachLineColormap.size() == 25);
@@ -45,10 +44,11 @@ void TestColorMapEntryCount()
 
 void TestColorByIndex(int majorIndex, int minorIndex) {
     std::string colorMap = BuildColorMap();
-    std::vector<std::string> eachLineColormap = tokenize(colorMap,"\n");
-    assert(eachLineColormap[majorIndex*5+ minorIndex].find(std::to_string(majorIndex * 5 + minorIndex)) != std::string::npos);
-    assert(eachLineColormap[majorIndex * 5 + minorIndex].find(majorColor[majorIndex]) != std::string::npos);
-    assert(eachLineColormap[majorIndex * 5 + minorIndex].find(minorColor[minorIndex]) != std::string::npos);
+    std::vector<std::string> eachLineColormap = tokenize(colorMap, "\n");
+    int index = majorIndex * 5 + minorIndex;
+    assert(eachLineColormap[index].find(std::to_string(index)) != std::string::npos);
+    assert(eachLineColormap[index].find(majorColor[majorIndex]) != std::string::npos);
+    assert(eachLineColormap[index].find(minorColor[minorIndex]) != std::string::npos);
 }
 
 void printColorMap() {
